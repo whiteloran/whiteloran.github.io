@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Word,Latax&amp;Markdown</title>
+      <link href="2021/04/10/21041001/"/>
+      <url>2021/04/10/21041001/</url>
+      
+        <content type="html"><![CDATA[<p>Latex非常稳定，基本不会有无法预见的错误，一次编辑，一次成型。核心思想在于<strong>格式与内容分离</strong>，所以可以使用一些现成的模板，像PPT一样在这个模板里对文字进行编辑——或许这种做法可以一定程度地减轻复杂度。</p><p>WORD是最为常规与常用的选择，可以将WORD和WPS连用，虽然修改格式牵一发而动全身，且容易崩溃失去内容，但是<strong>所见即所得</strong>的特性让这种输入体系简单易用，在小心操作模板的情况下，也有较为舒适的输入体验。</p><p>MD是最适合用于常常部分修改内容的书写的体系，比如读书笔记或是计划书。<strong>混合格式与内容</strong>的MD可以算是上面两者的中和。但毫无疑问，这玩意暂时还没法用来写更多的论文，只有少数地方允许使用这种格式。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>npm 换源镜像</title>
+      <link href="2021/04/10/21041002/"/>
+      <url>2021/04/10/21041002/</url>
+      
+        <content type="html"><![CDATA[<p>Node在执行npm命令时，从国外服务器下载第三方依赖包。在国内使用淘宝镜像会比较方便。</p><p>指定源:</p><pre class="line-numbers language-none"><code class="language-none">npm install --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>永久指定源：</p><pre class="line-numbers language-none"><code class="language-none">npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.orgnpm config get registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>替换为cnpm:</p><pre class="line-numbers language-none"><code class="language-none">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org cnpm -v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>常见镜像源：</p><pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;r.cnpmjs.org&#x2F;http:&#x2F;&#x2F;registry.npm.taobao.org&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+            <tag> Common Action </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>利用‘空间稳定化’稳定纳米粒子的机制</title>
+      <link href="2021/04/05/210405/"/>
+      <url>2021/04/05/210405/</url>
+      
+        <content type="html"><![CDATA[<p>空间稳定是一种能够解释某些添加剂抑制悬浮液凝固能力的机理。这些添加剂包括某些亲水聚合物和具有亲水链的表面活性剂。这些添加剂被认为覆盖了整个体系，使长环和长尾延伸到溶液中。即使在高盐浓度或表面zeta电位降低到接近零的条件下，空间稳定的体系也倾向于保持良好的分散性。空间稳定剂的有效性归因于当人们试图将聚合物链限制在较小体积时的热力学惩罚。另一种解释是，这种链子更加亲水，它们与水保持接触，而不愿与任何其他表面相互作用（除了它们一端附着在表面上）。空间稳定化的物理基础有两个，一是体积限制效应产生于2个靠近粒子表面间的区域的减小，二是渗透效应产生于2个粒子高浓度吸附聚合物分子层间的区域。</p><p><img data-src="https://i.loli.net/2021/04/05/7wopaK9rmuMxFZ8.png" alt="image.png"></p><span id="more"></span><p>利用这种添加配体的性质，我们得以让体系中的纳米粒子更加稳定。这种机制是这样的：<br>空间稳定化基于分子间的空间排斥作用或吸附在邻近粒子上的离子的作用。这些分子的大小和化学性质决定了其稳定程度。由于纳米颗粒周围的几何约束，大而笨重的分子提供了一种特别有效的稳定性，而细长或圆锥形的几何结构有利于将接近的纳米颗粒分开。<br>当稳定剂的长度明显长于纳米颗粒的特征尺寸时，可以形成一个球体来包裹纳米颗粒。因此，高分子量聚合物常被用作纳米粒子的稳定剂。<br>另一个重要的要求是，稳定剂必须在纳米粒子表面有足够强的吸附力，以提供较长的停留时间，并防止其自发解吸。当稳定剂提供多个吸附中心时，螯合作用可增加稳定剂保持吸附的可能性。<br>通常，化学吸附是吸附质与金属表面强结合的驱动力。价轨道比价电子多的金属有一个“不导电”的表面。因此，分子容易“捐赠”电子密度（即与自由电子孤对相关联的化学基团，例如二价硫、三价磷和三价氮部分或具有π电子的分子，例如芳香系统）通常在金属表面吸附非常强烈。大分子具有强吸附性，是稳定纳米颗粒的主要候选物质。</p><p>空间稳定的概念对纳米粒子的成功合成起着非常重要的作用。可能单纯的理论说明会不够直观，我们来看几个例子。<br>比如氟化配体在超临界CO 2中纳米晶体的立体稳定上的作用。在空间稳定系统中的关键是具有良好溶剂化的配体尾部，这些尾部延伸到溶剂中并提供必要的排斥力，以克服纳米晶体之间的范德华力吸引。在超临界CO 2中纳米晶体的立体稳定中，部分氟化纳米晶体在极性溶剂（例如丙酮和乙醇）中的分散性可以通过CH 2 -CF 2基团的大偶极矩来合理化，这会与极性溶剂产生大量的偶极-偶极相互作用，从而导致链化从粒子表面延伸。<br>又比如铁磁流体，这是悬浮在连续相中的小的单畴磁性颗粒的胶态分散体。铁磁流体通常具有磁性和流体特性，并已在生物和医学的各个领域找到了广泛的应用，例如酶和蛋白质固定化，放射性药物，磁共振成像，诊断，免疫测定，纯化，分离和受控的药物释放。完全通过静电排斥或表面活性剂双层稳定的磁性纳米颗粒分散体的使用受到其对诸如pH值和离子强度之类条件的敏感性的限制，并且对于改变颗粒的表面性质几乎没有影响。这在生物学应用中尤其重要，在这些应用中，这些颗粒将被施用到活生物体中，并且需要在中性pH和高离子强度下都非常稳定。对于这些环境，磁性纳米颗粒的稳定化可以通过用有机聚合物材料/表面活性剂涂覆颗粒表面来实现，由于弹性和渗透作用的结合，表面活性剂可在颗粒之间提供空间排斥。</p><p>如上，是对利用‘空间稳定化’稳定纳米粒子的机制的简单说明。</p><p>引用：</p><ol><li><p>M.G. Ivanov, D.M. Ivanov,<br>Chapter 14 - Nanodiamond Nanoparticles as Additives to Lubricants,<br>Editor(s): Olga A. Shenderova, Dieter M. Gruen,<br>Ultananocrystalline Diamond (Second Edition),<br>William Andrew Publishing,<br>2012,<br>Pages 457-492,<br>ISBN 9781437734652,<br><a href="https://doi.org/10.1016/B978-1-4377-3465-2.00014-1">https://doi.org/10.1016/B978-1-4377-3465-2.00014-1</a>.<br>(<a href="http://www.sciencedirect.com/science/article/pii/B9781437734652000141">http://www.sciencedirect.com/science/article/pii/B9781437734652000141</a>)</p></li><li><p>G D Parfitt (deceased), H A Barnes,<br>Chapter 6 - The dispersion of fine particles in liquid media,<br>Editor(s): N Harnby, M F Edwards, A W Nienow,<br>Mixing in the Process Industries,<br>Butterworth-Heinemann,<br>1992,<br>Pages 99-117,<br>ISBN 9780750637602,<br><a href="https://doi.org/10.1016/B978-075063760-2/50027-5">https://doi.org/10.1016/B978-075063760-2/50027-5</a>.<br>(<a href="http://www.sciencedirect.com/science/article/pii/B9780750637602500275">http://www.sciencedirect.com/science/article/pii/B9780750637602500275</a>)</p></li><li><p>Sherif Elbasuney,<br>Sustainable steric stabilization of colloidal titania nanoparticles,<br>Applied Surface Science,<br>Volume 409,<br>2017,<br>Pages 438-447,<br>ISSN 0169-4332,<br><a href="https://doi.org/10.1016/j.apsusc.2017.03.013">https://doi.org/10.1016/j.apsusc.2017.03.013</a>.<br>(<a href="http://www.sciencedirect.com/science/article/pii/S0169433217306645">http://www.sciencedirect.com/science/article/pii/S0169433217306645</a>)</p></li><li><p>Optimized Steric Stabilization of Aqueous Ferrofluids and Magnetic Nanoparticles<br>Nirmesh Jain, Yanjun Wang, Stephen K. Jones, Brian S. Hawkett, and Gregory G. Warr<br>Langmuir 2010 26 (6), 4465-4472<br>DOI: 10.1021/la903513v</p></li><li><p>Alexander Kraynov and Thomas E. Müller (September 22nd 2011). Concepts for the      Stabilization of Metal Nanoparticles in Ionic Liquids, Applications of Ionic Liquids in Science and     Technology, Scott Handy, IntechOpen, DOI: 10.5772/22111.<br>Available from:<br><a href="https://www.intechopen.com/books/applications-of-ionic-liquids-in-science-and">https://www.intechopen.com/books/applications-of-ionic-liquids-in-science-and</a> technology/concepts-for-the-stabilization-of-metal-nanoparticles-in-ionic-liquids</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 材料相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Material </tag>
+            
+            <tag> Old post </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python 3 模块pywin32 加载问题</title>
+      <link href="2021/04/05/pypiwin32/"/>
+      <url>2021/04/05/pypiwin32/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题描述：</strong> </p><p><code>No matching distribution found for win32com</code></p><p><strong>解决思路：</strong> </p><p>考虑是模组命名问题。</p><p><strong>解决方法：</strong></p><p><del><code>pip install win32com</code></del></p><p><del><code>pip3 install pypiwin32</code></del></p><p><code>pip3 install pywin32</code></p><p>其中，<code>pypiwin32</code>是<code>pywin32</code>的过时版本，应该避免使用它，而使用目前仍在更新的<code>pywin32</code>。</p><p><img data-src="https://i.loli.net/2021/04/05/NBJOzZQ76XRerLK.png" alt="image.png"></p><p><strong>参考链接：</strong></p><p><a href="https://pypi.org/project/pywin32/">https://pypi.org/project/pywin32/</a></p><p><a href="https://github.com/mhammond/pywin32">https://github.com/mhammond/pywin32</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+            <tag> Bugs Solution </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SSH RSA仅能在创建后首次使用正常运行 问题</title>
+      <link href="2021/04/05/sshkey/"/>
+      <url>2021/04/05/sshkey/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题描述：</strong> </p><p>ssh连接生成私钥后，仅首次连接才能使用，往后不能使用。</p><p><strong>解决思路：</strong> </p><p>电脑可能在长时程上有多个钥匙对，需要用config来指明使用对象。</p><p><strong>解决方法：</strong></p><p>配置.ssh/config。</p><p><img data-src="https://i.loli.net/2021/04/05/BA8gkQvwpXdsRuG.png" alt="image.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+            <tag> Bugs Solution </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SSH：Enter passphrase for key</title>
+      <link href="2021/04/05/sshpass/"/>
+      <url>2021/04/05/sshpass/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题描述：</strong> </p><pre class="line-numbers language-none"><code class="language-none">SSH：Enter passphrase for keyCould not open a connection to your authentication agent.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><strong>解决思路：</strong> </p><p>——</p><p><strong>解决方法：</strong></p><p><code>ssh-agent bash</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+            <tag> Bugs Solution </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Git Bash中文输出乱码问题</title>
+      <link href="2021/04/04/gitcode/"/>
+      <url>2021/04/04/gitcode/</url>
+      
+        <content type="html"><![CDATA[<p>问题描述：Git Bash下运行代码输出中文文本时出现乱码和未成功显示，英文如常。<br>解决思路：考虑是编码问题。<br>解决方法：右键打开Options，在text选项卡中，如下图所示修改编码即可。</p><p><img data-src="https://i.loli.net/2021/04/04/CHi2eNOSmrndXwZ.png" alt="clipboard.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+            <tag> Bugs Solution </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python 3 模块Crypto 加载问题</title>
+      <link href="2021/04/04/pymodulecrypto/"/>
+      <url>2021/04/04/pymodulecrypto/</url>
+      
+        <content type="html"><![CDATA[<p>问题描述：<code>pip3 install crypto </code>后，仍然无法读取模块。</p><p>解决思路：考虑是模组命名问题。</p><p>解决方法：<del>打开Python环境模组安装位置，修改crypto文件夹的名称。</del></p><p>选择安全性更高的<code>pycryptodome</code>。<code>pip3 install pycryptodome</code>。</p><p><img data-src="https://i.loli.net/2021/04/04/NXUYfiC4wZWrcbg.png" alt="image-20210403223749181.png"></p><p>参考链接：<a href="https://pypi.org/project/pycryptodome/">https://pypi.org/project/pycryptodome/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+            <tag> Bugs Solution </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python 3 模块iso639  加载问题</title>
+      <link href="2021/04/03/pymoiso639/"/>
+      <url>2021/04/03/pymoiso639/</url>
+      
+        <content type="html"><![CDATA[<p>问题描述：</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> iso639 <span class="token keyword">import</span> languages ImportError<span class="token punctuation">:</span> cannot <span class="token keyword">import</span> name <span class="token string">'languages'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>解决思路：考虑是模组命名问题。</p><p>解决方法：有错误的同名模组。在安装时应为，<code>pip install iso-639</code> 。</p><p>参考链接：<br><a href="https://pypi.org/project/iso-639/">https://pypi.org/project/iso-639/</a><br><a href="https://pypi.org/project/iso639/">https://pypi.org/project/iso639/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机程序应用 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Old post </tag>
+            
+            <tag> Bugs Solution </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
