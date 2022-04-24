@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"whiteloran.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CrossMoDA 2021 challenge: Benchmark of Cross-Modality Domain Adaptation techniques for Vestibular Schwannoma and Cochlea Segmentation上线时间：2022-01-08期刊：MIA 开源：https:&#x2F;&#x2F;paperswithcode.com&#x2F;dataset&#x2F;crossmo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文略读2022-03-28">
+<meta property="og:url" content="http://whiteloran.github.io/2022/03/28/22032801/index.html">
+<meta property="og:site_name" content="Whiteloran&#39;s Blog">
+<meta property="og:description" content="CrossMoDA 2021 challenge: Benchmark of Cross-Modality Domain Adaptation techniques for Vestibular Schwannoma and Cochlea Segmentation上线时间：2022-01-08期刊：MIA 开源：https:&#x2F;&#x2F;paperswithcode.com&#x2F;dataset&#x2F;crossmo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281546360.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281559651.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281602693.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281613364.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281624952.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281703324.png">
+<meta property="article:published_time" content="2022-03-28T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-05T12:29:43.000Z">
+<meta property="article:author" content="whiteloran">
+<meta property="article:tag" content="Multi-modal">
+<meta property="article:tag" content="Uncertainty estimation">
+<meta property="article:tag" content="Zero-shot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281546360.png">
+
+<link rel="canonical" href="http://whiteloran.github.io/2022/03/28/22032801/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>论文略读2022-03-28 | Whiteloran's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Whiteloran's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">For Further Future</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-index">
+
+    <a href="/indexer/" rel="section"><i class="fa fa-list fa-fw"></i>Index</a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-files">
+
+    <a href="/Files/" rel="section"><i class="fa fa-file fa-fw"></i>Files</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-cube fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Timeline</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://whiteloran.github.io/2022/03/28/22032801/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="whiteloran">
+      <meta itemprop="description" content="Il n'ya qu'un héroïsme au monde, c'est de voir le monde tel qu'il est et de l'aimer.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whiteloran's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文略读2022-03-28
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-28 20:00:00" itemprop="dateCreated datePublished" datetime="2022-03-28T20:00:00+08:00">2022-03-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index"><span itemprop="name">Paper</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/Daily-Skim/" itemprop="url" rel="index"><span itemprop="name">Daily Skim</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="CrossMoDA-2021-challenge-Benchmark-of-Cross-Modality-Domain-Adaptation-techniques-for-Vestibular-Schwannoma-and-Cochlea-Segmentation"><a href="#CrossMoDA-2021-challenge-Benchmark-of-Cross-Modality-Domain-Adaptation-techniques-for-Vestibular-Schwannoma-and-Cochlea-Segmentation" class="headerlink" title="CrossMoDA 2021 challenge: Benchmark of Cross-Modality Domain Adaptation techniques for Vestibular Schwannoma and Cochlea Segmentation"></a>CrossMoDA 2021 challenge: Benchmark of Cross-Modality Domain Adaptation techniques for Vestibular Schwannoma and Cochlea Segmentation</h3><p>上线时间：2022-01-08<br>期刊：MIA</p>
+<p>开源：<a target="_blank" rel="noopener" href="https://paperswithcode.com/dataset/crossmoda">https://paperswithcode.com/dataset/crossmoda</a></p>
+<p>评论：公开的脑部跨模态域适应数据集。</p>
+<h3 id="MT-UDA-Towards-Unsupervised-Cross-modality-Medical-Image-Segmentation-with-Limited-Source-Labels"><a href="#MT-UDA-Towards-Unsupervised-Cross-modality-Medical-Image-Segmentation-with-Limited-Source-Labels" class="headerlink" title="MT-UDA: Towards Unsupervised Cross-modality Medical Image Segmentation with Limited Source Labels"></a>MT-UDA: Towards Unsupervised Cross-modality Medical Image Segmentation with Limited Source Labels</h3><p>上线时间：2021-09-21<br>期刊：MICCAI<br>链接：<a target="_blank" rel="noopener" href="https://link.springer.com/chapter/10.1007/978-3-030-87193-2_28">https://link.springer.com/chapter/10.1007/978-3-030-87193-2_28</a></p>
+<p>临床意义：通用意义，标签稀缺。<br>工程创新：A+B: Unsupervised DA + Knowledge Transfer<br>方法：双重师生模型+UDA</p>
+<p>开源：<a target="_blank" rel="noopener" href="https://github.com/jacobzhaoziyuan/MT-UDA">https://github.com/jacobzhaoziyuan/MT-UDA</a><br>评论：源域半监督+跨域UDA+双重师生模型。叠起来还是挺好的。双循环对位模块用于双向降低域漂移，生成近似源域和近似目标域。</p>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281546360.png" width="80%">
+
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281559651.png" width="80%">
+
+<h3 id="Semi-Supervised-Hybrid-Spine-Network-for-Segmentation-of-Spine-MR-Images"><a href="#Semi-Supervised-Hybrid-Spine-Network-for-Segmentation-of-Spine-MR-Images" class="headerlink" title="Semi-Supervised Hybrid Spine Network for Segmentation of Spine MR Images"></a>Semi-Supervised Hybrid Spine Network for Segmentation of Spine MR Images</h3><p>上线时间：2021-09-21<br>期刊：N/A<br>链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.12151">https://arxiv.org/abs/2203.12151</a></p>
+<p>临床意义：在3DMRI中，自动分割椎体 (VB) 和椎间盘 (IVD) 对于诊断和治疗脊柱疾病很重要。<br>工程创新：混合半监督+注意力机制<br>方法：2D+3D Deeplab + 三重注意力融合</p>
+<p>开源：<a target="_blank" rel="noopener" href="https://github.com/meiyan88/sshsnet">https://github.com/meiyan88/sshsnet</a></p>
+<p>评论：用较长的篇幅解释清楚了怎么完成网络构建。</p>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281602693.png" width="80%">
+
+<h3 id="JCS-An-Explainable-COVID-19-Diagnosis-System-by-Joint-Classification-and-Segmentation"><a href="#JCS-An-Explainable-COVID-19-Diagnosis-System-by-Joint-Classification-and-Segmentation" class="headerlink" title="JCS: An Explainable COVID-19 Diagnosis System by Joint Classification and Segmentation"></a>JCS: An Explainable COVID-19 Diagnosis System by Joint Classification and Segmentation</h3><p>上线时间：2021-02-18（投稿2020-03-16）<br>期刊：IEEE TIP<br>链接：<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/abstract/document/9357961/">https://ieeexplore.ieee.org/abstract/document/9357961/</a></p>
+<p>临床意义：胸部CT扫描测试为RT-PCR测试提供补充信息，用于感染检查。<br>工程创新：联合分类和分割 (JCS) 系统来执行实时和可解释的 COVID-19 胸部 CT 诊断。<br>方法：双路网络。</p>
+<p>开源：<a target="_blank" rel="noopener" href="https://github.com/yuhuan-wu/JCS">https://github.com/yuhuan-wu/JCS</a><br>评论：写得快，数据集大加上有现实实践真的可以随便做的。</p>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281613364.png" width="80%">
+
+<h3 id="Disentangled-Inference-for-GANs-With-Latently-Invertible-Autoencoder"><a href="#Disentangled-Inference-for-GANs-With-Latently-Invertible-Autoencoder" class="headerlink" title="Disentangled Inference for GANs With Latently Invertible Autoencoder"></a>Disentangled Inference for GANs With Latently Invertible Autoencoder</h3><p>上线时间：2022-03-22（投稿2020-03-16）<br>期刊：IJCV 2022<br>链接：<a target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s11263-022-01598-5">https://link.springer.com/article/10.1007/s11263-022-01598-5</a></p>
+<p>工程挑战：生成对抗网络 (GAN) 无法在潜在空间中编码真实样本。we cannot infer the latent variable $z$ corresponding to a given sample $x$ such that the image can be faithfully reconstructed from $z$ by the GAN generator.<br>方法：潜在可逆自动编码器 (LIA) 。在 LIA 中，可逆网络及其逆映射对称地嵌入自编码器的潜在空间中。LIA 的解码器首先被训练为具有可逆网络的标准 GAN，然后通过将可逆网络从 LIA 中分离出来，从解纠缠的自动编码器中学习编码器。</p>
+<p>开源：<a target="_blank" rel="noopener" href="https://github.com/genforce/lia">https://github.com/genforce/lia</a><br>评论：对潜在空间的解纠缠的解析使用了VAE来完成，可以视作用VAE来外联GAN。能够对潜在空间解纠缠可以让GAN的生成的定向能力提升。</p>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281624952.png" width="80%">
+
+<h3 id="CDTrans-Cross-domain-Transformer-for-Unsupervised-Domain-Adaptation"><a href="#CDTrans-Cross-domain-Transformer-for-Unsupervised-Domain-Adaptation" class="headerlink" title="CDTrans: Cross-domain Transformer for Unsupervised Domain Adaptation"></a>CDTrans: Cross-domain Transformer for Unsupervised Domain Adaptation</h3><p>上线时间：2021-09-13<br>期刊：ICCV 2021<br>链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.06165">https://arxiv.org/abs/2109.06165</a></p>
+<p>工程挑战：基于类别级别的 UDA 的一个基本问题是为目标域中的样本生成伪标签，这些伪标签通常对于准确的域对齐来说过于嘈杂，不可避免地会影响 UDA 的性能。<br>工程创新：Transformer 中的交叉注意力对嘈杂的输入对具有鲁棒性，可以更好地进行特征对齐。<br>方法：设计了一种双向中心感知标签算法来为目标样本生成伪标签。除了伪标签之外，还提出了一个权重共享的三分支转换器框架，以分别将自注意力和交叉注意力应用于源/目标特征学习和源-目标域对齐。</p>
+<p>开源：<a target="_blank" rel="noopener" href="https://github.com/cdtrans/cdtrans">https://github.com/cdtrans/cdtrans</a><br>评论：构造Transformer来完成UDA，降低伪标签的噪声影响。实验做得一般。</p>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202203281703324.png" width="80%">
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Multi-modal/" rel="tag"># Multi-modal</a>
+              <a href="/tags/Uncertainty-estimation/" rel="tag"># Uncertainty estimation</a>
+              <a href="/tags/Zero-shot/" rel="tag"># Zero-shot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/23/22032301/" rel="prev" title="论文略读2022-03-23">
+      <i class="fa fa-chevron-left"></i> 论文略读2022-03-23
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/29/22032901/" rel="next" title="论文略读2022-03-29">
+      论文略读2022-03-29 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CrossMoDA-2021-challenge-Benchmark-of-Cross-Modality-Domain-Adaptation-techniques-for-Vestibular-Schwannoma-and-Cochlea-Segmentation"><span class="nav-text">CrossMoDA 2021 challenge: Benchmark of Cross-Modality Domain Adaptation techniques for Vestibular Schwannoma and Cochlea Segmentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MT-UDA-Towards-Unsupervised-Cross-modality-Medical-Image-Segmentation-with-Limited-Source-Labels"><span class="nav-text">MT-UDA: Towards Unsupervised Cross-modality Medical Image Segmentation with Limited Source Labels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Semi-Supervised-Hybrid-Spine-Network-for-Segmentation-of-Spine-MR-Images"><span class="nav-text">Semi-Supervised Hybrid Spine Network for Segmentation of Spine MR Images</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JCS-An-Explainable-COVID-19-Diagnosis-System-by-Joint-Classification-and-Segmentation"><span class="nav-text">JCS: An Explainable COVID-19 Diagnosis System by Joint Classification and Segmentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disentangled-Inference-for-GANs-With-Latently-Invertible-Autoencoder"><span class="nav-text">Disentangled Inference for GANs With Latently Invertible Autoencoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDTrans-Cross-domain-Transformer-for-Unsupervised-Domain-Adaptation"><span class="nav-text">CDTrans: Cross-domain Transformer for Unsupervised Domain Adaptation</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="whiteloran"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">whiteloran</p>
+  <div class="site-description" itemprop="description">Il n'ya qu'un héroïsme au monde, c'est de voir le monde tel qu'il est et de l'aimer.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whiteloran" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whiteloran" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-angle-double-up"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">whiteloran</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":300,"height":300},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

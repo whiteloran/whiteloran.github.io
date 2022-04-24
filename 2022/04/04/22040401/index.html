@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"whiteloran.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="初级算法-数组知识数组是一种线性数据结构，其常见复杂度如下： 查找O(n)，删除O(n)，插入O(n)，随机读取O(1) 若初始化一个定长数组，可以降低复杂度，但将会失去可变数组带来的简便添加元素和删除元素的方法。 技巧双指针法（多指针法）其核心思想是，构建单个（多个）数组中需要交互操作，同时操作，同一操作的两个（多个）位置之间的函数关系，赋予指针变量。这样，即可通过遍历一次由单位向量构成的自变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode 初级算法-数组">
+<meta property="og:url" content="http://whiteloran.github.io/2022/04/04/22040401/index.html">
+<meta property="og:site_name" content="Whiteloran&#39;s Blog">
+<meta property="og:description" content="初级算法-数组知识数组是一种线性数据结构，其常见复杂度如下： 查找O(n)，删除O(n)，插入O(n)，随机读取O(1) 若初始化一个定长数组，可以降低复杂度，但将会失去可变数组带来的简便添加元素和删除元素的方法。 技巧双指针法（多指针法）其核心思想是，构建单个（多个）数组中需要交互操作，同时操作，同一操作的两个（多个）位置之间的函数关系，赋予指针变量。这样，即可通过遍历一次由单位向量构成的自变量">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204111527491.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204021643482.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012238232.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012209196.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012212882.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012222766.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012154495.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012153712.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012157353.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204122037760.png">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/08/28/mat1.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/08/28/mat2.jpg">
+<meta property="article:published_time" content="2022-04-04T04:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-14T14:22:18.000Z">
+<meta property="article:author" content="whiteloran">
+<meta property="article:tag" content="初级算法">
+<meta property="article:tag" content="list">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204111527491.png">
+
+<link rel="canonical" href="http://whiteloran.github.io/2022/04/04/22040401/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Leetcode 初级算法-数组 | Whiteloran's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Whiteloran's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">For Further Future</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-index">
+
+    <a href="/indexer/" rel="section"><i class="fa fa-list fa-fw"></i>Index</a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-files">
+
+    <a href="/Files/" rel="section"><i class="fa fa-file fa-fw"></i>Files</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-cube fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Timeline</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://whiteloran.github.io/2022/04/04/22040401/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="whiteloran">
+      <meta itemprop="description" content="Il n'ya qu'un héroïsme au monde, c'est de voir le monde tel qu'il est et de l'aimer.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Whiteloran's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Leetcode 初级算法-数组
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-04 12:00:00" itemprop="dateCreated datePublished" datetime="2022-04-04T12:00:00+08:00">2022-04-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docs/" itemprop="url" rel="index"><span itemprop="name">Docs</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docs/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="初级算法-数组"><a href="#初级算法-数组" class="headerlink" title="初级算法-数组"></a>初级算法-数组</h1><h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><strong>数组</strong>是一种<strong>线性数据结构</strong>，其常见复杂度如下：</p>
+<p>查找O(n)，删除O(n)，插入O(n)，随机读取O(1)</p>
+<p>若初始化一个定长数组，可以降低复杂度，但将会失去可变数组带来的简便添加元素和删除元素的方法。</p>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="双指针法（多指针法）"><a href="#双指针法（多指针法）" class="headerlink" title="双指针法（多指针法）"></a>双指针法（多指针法）</h3><p>其核心思想是，构建单个（多个）数组中需要交互操作，同时操作，同一操作的两个（多个）位置之间的函数关系，赋予指针变量。这样，即可通过遍历一次由单位向量构成的自变量，达成同时对相应的全部位置进行操作。</p>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p>运算符还包括了逻辑运算符，在写代码时不应只留意函数关系的加减乘除。</p>
+<span id="more"></span>
+
+
+
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="26-删除有序数组中的重复项"><a href="#26-删除有序数组中的重复项" class="headerlink" title="26.删除有序数组中的重复项"></a>26.删除有序数组中的重复项</h3><h4 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h4><p>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array</a></p>
+<p>给你一个 <strong>升序排列</strong> 的数组 nums ，请你 <strong>原地</strong> 删除重复出现的元素，使每个元素 <strong>只出现一次</strong> ，返回删除后数组的新长度。元素的 <strong>相对顺序</strong> 应该保持 <strong>一致</strong> 。</p>
+<p>由于在某些语言中不能改变数组的长度，所以必须将结果放在数组nums的第一部分。更规范地说，如果在删除重复项之后有 k 个元素，那么 nums 的前 k 个元素应该保存最终结果。</p>
+<p>将最终结果插入 nums 的前 k 个位置后返回 k 。</p>
+<p>不要使用额外的空间，你必须在 <strong>原地</strong> 修改输入数组 并在使用 O(1) 额外空间的条件下完成。</p>
+<p>示例 1：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [1,1,2]
+输出：2, nums &#x3D; [1,2,_]
+解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>示例 2：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [0,0,1,1,1,2,2,3,3,4]
+输出：5, nums &#x3D; [0,1,2,3,4]
+解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。不需要考虑数组中超出新长度后面的元素。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<details>
+<summary>提示：</summary>
+<pre class="line-numbers language-none"><code class="language-none">0 &lt;&#x3D; nums.length &lt;&#x3D; 3 * 104
+-104 &lt;&#x3D; nums[i] &lt;&#x3D; 104
+nums 已按 升序 排列<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</details>
+
+<h4 id="解答："><a href="#解答：" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        p <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>idx<span class="token operator">-</span>p<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>idx<span class="token operator">-</span>p<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token keyword">del</span> nums<span class="token punctuation">[</span>idx<span class="token operator">-</span>p<span class="token punctuation">]</span>
+                p <span class="token operator">=</span> p <span class="token operator">+</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<details>
+<summary>Result：</summary>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204111527491.png"/>
+</details>
+
+<p><strong>相似解答</strong>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        p <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>idx<span class="token operator">-</span>p<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>idx<span class="token operator">-</span>p<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                nums<span class="token punctuation">.</span>pop<span class="token punctuation">(</span>idx<span class="token operator">-</span>p<span class="token punctuation">)</span>
+                p <span class="token operator">=</span> p <span class="token operator">+</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>之所以会这么慢，是因为<code>del</code>本身的复杂度是$O(n)$，同时for循环的复杂度也是$O(n)$。导致了整体的复杂度提升。<br>一个简单的改进方法是使用快慢<strong>激励</strong>双指针，两个指针初始相差一位，当两者数值不同，就将快指针指向的值赋予慢指针指向的位置，同时两指针都向前一步；当两者数值相同，或是<strong>快</strong>指针前后相同，则仅仅激励<strong>快</strong>指针。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        i <span class="token operator">=</span> <span class="token number">0</span>
+        j <span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token comment"># 提前保存首位</span>
+        p <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        <span class="token keyword">while</span> i <span class="token operator">&lt;=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">and</span> j <span class="token operator">&lt;=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token keyword">or</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token punctuation">:</span>
+                j <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> nums <span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span>
+                j <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token comment"># 重新放回首位</span>
+        nums<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> i<span class="token operator">+</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h3><h4 id="问题：-1"><a href="#问题：-1" class="headerlink" title="问题："></a>问题：</h4><p>给定一个数组 prices ，其中 prices[i] 表示股票第 i 天的价格。</p>
+<p>在每一天，你可能会决定购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以购买它，然后在** 同一天** 出售。<br>返回 你能获得的 <strong>最大</strong> 利润 。</p>
+<p>示例 1:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: prices &#x3D; [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 &#x3D; 1）的时候买入，在第 3 天（股票价格 &#x3D; 5）的时候卖出, 这笔交易所能获得利润 &#x3D; 5-1 &#x3D; 4 。
+     随后，在第 4 天（股票价格 &#x3D; 3）的时候买入，在第 5 天（股票价格 &#x3D; 6）的时候卖出, 这笔交易所能获得利润 &#x3D; 6-3 &#x3D; 3 。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例 2:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: prices &#x3D; [1,2,3,4,5]
+输出: 4
+解释: 在第 1 天（股票价格 &#x3D; 1）的时候买入，在第 5 天 （股票价格 &#x3D; 5）的时候卖出, 这笔交易所能获得利润 &#x3D; 5-1 &#x3D; 4 。
+     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例 3:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: prices &#x3D; [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>提示：</p>
+<pre class="line-numbers language-none"><code class="language-none">1 &lt;&#x3D; prices.length &lt;&#x3D; 3 * 104
+0 &lt;&#x3D; prices[i] &lt;&#x3D; 104<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="解答：-1"><a href="#解答：-1" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">maxProfit</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> prices<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">global</span> highest
+        <span class="token keyword">global</span> k 
+        highest <span class="token operator">=</span> <span class="token number">0</span>
+        k <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>prices<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> Solution<span class="token punctuation">.</span>iterer<span class="token punctuation">(</span>idx<span class="token punctuation">,</span>prices<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token keyword">and</span> idx <span class="token keyword">not</span> <span class="token keyword">in</span> k<span class="token punctuation">:</span>
+                Solution<span class="token punctuation">.</span>iterer<span class="token punctuation">(</span>idx<span class="token punctuation">,</span>prices<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> highest
+            
+    <span class="token keyword">def</span> <span class="token function">iterer</span><span class="token punctuation">(</span>idx<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> prices<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> higher<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment">#global k</span>
+        <span class="token keyword">global</span> highest
+        <span class="token keyword">for</span> length <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>prices<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token operator">-</span>idx<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> prices<span class="token punctuation">[</span>idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">-</span>prices<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token operator">+</span>higher<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">:</span>     
+                <span class="token keyword">if</span> prices<span class="token punctuation">[</span>idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">-</span>prices<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token operator">+</span>higher<span class="token operator">></span>highest<span class="token punctuation">:</span>
+                    highest <span class="token operator">=</span> prices<span class="token punctuation">[</span>idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">-</span>prices<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token operator">+</span>higher
+            <span class="token keyword">if</span> idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">2</span> <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>prices<span class="token punctuation">)</span> <span class="token keyword">and</span> idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">:</span>
+                <span class="token keyword">for</span> idx2 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>prices<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token operator">-</span>idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    <span class="token comment"># 无限递归</span>
+                    Solution<span class="token punctuation">.</span>iterer<span class="token punctuation">(</span>idx2<span class="token operator">+</span>idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>prices<span class="token punctuation">,</span>prices<span class="token punctuation">[</span>idx<span class="token operator">+</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">-</span>prices<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token operator">+</span>higher<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的代码在数组大的时候超时了。原因是因为无限递归的时间复杂度太高。这种时候，就应该分析题设没有给出的数学条件。<br>可以看出，隔多日买入卖出，可以视为每一日都买入卖出的加和。<br>这样，为了达成最优获利，只需要将能盈利的每日都相加即可。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">maxProfit</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> prices<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        highest <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token builtin">len</span><span class="token punctuation">(</span>prices<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            highest <span class="token operator">+=</span> <span class="token builtin">max</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>prices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span>prices<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> highest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="189-轮转数组"><a href="#189-轮转数组" class="headerlink" title="189. 轮转数组"></a>189. 轮转数组</h3><h4 id="问题：-2"><a href="#问题：-2" class="headerlink" title="问题："></a>问题：</h4><p>给你一个数组，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。</p>
+<p>示例 1:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: nums &#x3D; [1,2,3,4,5,6,7], k &#x3D; 3
+输出: [5,6,7,1,2,3,4]
+解释:
+向右轮转 1 步: [7,1,2,3,4,5,6]
+向右轮转 2 步: [6,7,1,2,3,4,5]
+向右轮转 3 步: [5,6,7,1,2,3,4]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例 2:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [-1,-100,3,99], k &#x3D; 2
+输出：[3,99,-1,-100]
+解释: 
+向右轮转 1 步: [99,-1,-100,3]
+向右轮转 2 步: [3,99,-1,-100]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>提示：</p>
+<pre class="line-numbers language-none"><code class="language-none">1 &lt;&#x3D; nums.length &lt;&#x3D; 105
+-231 &lt;&#x3D; nums[i] &lt;&#x3D; 231 - 1
+0 &lt;&#x3D; k &lt;&#x3D; 105<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="解答：-2"><a href="#解答：-2" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<ol>
+<li>简单法：<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">rotate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> k<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        Do not return anything, modify nums in-place instead.
+        """</span>
+        <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            nums<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>nums<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<details>
+<summary>Result：</summary>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204021643482.png"/>
+</details>
+
+<p>上述代码写起来还是挺简单的，但insert和pop对时间的消耗比较大。若是想要在一次循环下完成，我们需要额外的空间。</p>
+<ol>
+<li>迭代法：</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">rotate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> k<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        Do not return anything, modify nums in-place instead.
+        """</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">:</span> 
+            i <span class="token operator">=</span> <span class="token number">0</span>
+            j <span class="token operator">=</span> k
+            <span class="token comment"># 可变类型需要深拷贝才能不受对象变化影响</span>
+            p <span class="token operator">=</span> copy<span class="token punctuation">.</span>deepcopy<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+            <span class="token keyword">while</span> i<span class="token operator">&lt;=</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+                <span class="token keyword">while</span> j <span class="token operator">></span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+                    j <span class="token operator">=</span> j<span class="token operator">-</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+                nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">=</span> i<span class="token operator">+</span><span class="token number">1</span>
+                j <span class="token operator">=</span> j<span class="token operator">+</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>两指针分别指向两数组，其间距相差k，对数组长度遍历一遍，即可获得结果。在上述代码中，深拷贝耗费了不少的时间，可以被优化掉。</p>
+<h3 id="217-存在重复元素"><a href="#217-存在重复元素" class="headerlink" title="217. 存在重复元素"></a>217. 存在重复元素</h3><h4 id="问题：-3"><a href="#问题：-3" class="headerlink" title="问题："></a>问题：</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/contains-duplicate/">https://leetcode-cn.com/problems/contains-duplicate/</a></p>
+<p>给你一个整数数组 nums 。如果任一值在数组中出现 <strong>至少两次</strong> ，返回 true ；如果数组中每个元素互不相同，返回 false 。</p>
+<p>示例 1：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [1,2,3,1]
+输出：true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+<p>示例 2：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [1,2,3,4]
+输出：false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>示例 3：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [1,1,1,3,3,4,3,2,4,2]
+输出：true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>提示：</p>
+<pre class="line-numbers language-none"><code class="language-none">1 &lt;&#x3D; nums.length &lt;&#x3D; 105
+-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="解答：-3"><a href="#解答：-3" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">containsDuplicate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        <span class="token comment"># 转为set剔除掉不符元素，再比较长度是否相等</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+    <span class="token comment"># 等价于</span>
+    <span class="token keyword">def</span> <span class="token function">containsDuplicate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token keyword">not</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>除了利用set不能保存重复元素的性质，还有没有别的办法可以做到？</p>
+<p>可以使用一种可变数据类型来保存已经存在的内容：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">containsDuplicate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        <span class="token comment"># s可以使用任何可变可查找的类型，其中，最快的是字典。</span>
+        s <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> nums<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> i <span class="token keyword">in</span> s<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">True</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                s<span class="token punctuation">.</span>add<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">False</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h3><h4 id="问题：-4"><a href="#问题：-4" class="headerlink" title="问题："></a>问题：</h4><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
+<p>说明：</p>
+<p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
+<p>示例 1:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: [2,2,1]
+输出: 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+<p>示例 2:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: [4,1,2,1,2]
+输出: 4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="解答：-4"><a href="#解答：-4" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">singleNumber</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> nums<span class="token punctuation">:</span>
+            <span class="token comment"># 使用计数函数</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">.</span>count<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> i<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但这种方式无疑是十分缓慢的，一种简单的改进方法是使用如上一题的方法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">singleNumber</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token comment"># 构造字典</span>
+        k <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        p <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> nums<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> i <span class="token keyword">in</span> k<span class="token punctuation">:</span>
+                p<span class="token punctuation">.</span>pop<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+                <span class="token keyword">continue</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                k<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i
+                p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i
+        <span class="token comment"># 返回唯一存在的对象</span>
+        <span class="token keyword">return</span> <span class="token builtin">list</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>但是，一个新的问题又出现了，这个新方法也没有办法不使用额外空间。如果想要不使用额外空间，那么就得考虑内建的函数（算法）。</p>
+<p>在本题中，需要接触并使用<strong>位运算（逻辑运算）</strong>：</p>
+<p><strong>异或</strong>运算的性质可以在数字电路中简单掌握，相同输出0，不同输出1。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">singleNumber</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token comment"># reduce()函数用于累积；lambda用于声明匿名函数。reduce()对范围nums内所有值做lambda()操作，'^'是按位异或运算符。</span>
+        <span class="token keyword">return</span> <span class="token builtin">reduce</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">,</span> y<span class="token punctuation">:</span> x <span class="token operator">^</span> y<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h3 id="350-两个数组的交集-II"><a href="#350-两个数组的交集-II" class="headerlink" title="350. 两个数组的交集 II"></a>350. 两个数组的交集 II</h3><h4 id="问题：-5"><a href="#问题：-5" class="headerlink" title="问题："></a>问题：</h4><p>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intersection-of-two-arrays-ii">https://leetcode-cn.com/problems/intersection-of-two-arrays-ii</a></p>
+<p>给你两个整数数组<code>nums1</code>和<code>nums2</code>，请你以数组形式返回两数组的<strong>交集</strong>。返回结果中每个元素出现的次数，应与元素在两个数组中都出现的次数一致（如果出现次数不一致，则考虑取较小值）。可以不考虑输出结果的顺序。</p>
+<p><strong>示例 1：</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums1 &#x3D; [1,2,2,1], nums2 &#x3D; [2,2]
+输出：[2,2]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>示例 2:</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums1 &#x3D; [4,9,5], nums2 &#x3D; [9,4,9,8,4]
+输出：[4,9]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<details>
+<summary>其它：</summary>
+**提示：**
+
+<pre class="line-numbers language-none"><code class="language-none">1 &lt;&#x3D; nums1.length, nums2.length &lt;&#x3D; 1000
+0 &lt;&#x3D; nums1[i], nums2[i] &lt;&#x3D; 1000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>进阶：</strong></p>
+<p>如果给定的数组已经排好序呢？你将如何优化你的算法？<br>如果 nums1 的大小比 nums2 小，哪种方法更优？<br>如果 nums2 的元素存储在磁盘上，内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？</p>
+</details>
+
+<h4 id="解答：-5"><a href="#解答：-5" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">intersect</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums1<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> nums2<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        k <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token comment"># 遍历数值</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> nums1<span class="token punctuation">:</span>
+            <span class="token comment"># 避免重复数值</span>
+            <span class="token keyword">if</span> i <span class="token keyword">not</span> <span class="token keyword">in</span> k<span class="token punctuation">:</span>
+                <span class="token comment"># 按最小出现次数</span>
+                <span class="token keyword">for</span> p <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">min</span><span class="token punctuation">(</span>nums1<span class="token punctuation">.</span>count<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span>nums2<span class="token punctuation">.</span>count<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    <span class="token comment"># 输入数组</span>
+                    k<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> k<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<details>
+<summary>Result：</summary>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012238232.png"/>
+</details>
+
+<p>显然，这个代码的时间复杂程度太高了。为了降低代码的时间复杂度，最为简单能解决的是在中间使用的两个<code>count()</code>【$O(n)$】函数，将它们替换成时间复杂度更低的方法，或者是把它们移出外围<code>for</code>循环。</p>
+<p>那么，一个合理的思路是，‘既然这一步是因为无法统计到元素重复次数，那就将元素重复统计放到循环之前。在这里，可以使用双指针走两个排序<code>sort()</code>【$O(n\times log(n))$】数组来完成。</p>
+<p><strong>再次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">intersect</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums1<span class="token punctuation">,</span> nums2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        nums1 <span class="token operator">=</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>nums1<span class="token punctuation">)</span>
+        nums2 <span class="token operator">=</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>nums2<span class="token punctuation">)</span>
+        i <span class="token operator">=</span> <span class="token number">0</span>
+        j <span class="token operator">=</span> <span class="token number">0</span>
+        k <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums1<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>j<span class="token operator">&lt;</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                k<span class="token punctuation">.</span>append<span class="token punctuation">(</span>nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                i <span class="token operator">=</span> i<span class="token operator">+</span><span class="token number">1</span>
+                j <span class="token operator">=</span> j<span class="token operator">+</span><span class="token number">1</span>
+            <span class="token keyword">elif</span><span class="token punctuation">(</span>nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                j <span class="token operator">=</span> j<span class="token operator">+</span><span class="token number">1</span>
+            <span class="token keyword">elif</span><span class="token punctuation">(</span>nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                i <span class="token operator">=</span> i<span class="token operator">+</span><span class="token number">1</span>
+        <span class="token keyword">return</span> k<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="66-加一"><a href="#66-加一" class="headerlink" title="66.加一"></a>66.加一</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/plus-one">https://leetcode-cn.com/problems/plus-one</a></p>
+<h4 id="问题：-6"><a href="#问题：-6" class="headerlink" title="问题："></a>问题：</h4><p>给定一个由<strong>整数</strong>组成的<strong>非空</strong>数组所表示的非负整数，在该数的基础上加一。<br>最高位数字存放在数组的首位，数组中每个元素只存储<strong>单个</strong>数字。<br>你可以假设除了整数<strong>0</strong>之外，这个整数不会以零开头。</p>
+<p><strong>示例 1：</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">输入：digits &#x3D; [1,2,3]
+输出：[1,2,4]
+解释：输入数组表示数字 123。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">输入：digits &#x3D; [4,3,2,1]
+输出：[4,3,2,2]
+解释：输入数组表示数字 4321。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>示例 3：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：digits &#x3D; [0]
+输出：[1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<details>
+<summary>其它：</summary>
+提示：
+1 <= digits.length <= 100
+0 <= digits[i] <= 9
+</details>
+
+<h4 id="解答：-6"><a href="#解答：-6" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">plusOne</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> digits<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment"># 末位+1</span>
+        digits<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> digits<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token comment"># 捕捉进位（这个一开始可能忽略掉），其实这里可以只要后面的部分，但是这样会进循环减速。</span>
+        <span class="token keyword">if</span> digits<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">10</span><span class="token punctuation">:</span>
+            <span class="token comment"># 循环进位</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>digits<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> digits<span class="token punctuation">[</span><span class="token operator">-</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">10</span><span class="token punctuation">:</span>
+                    digits<span class="token punctuation">[</span><span class="token operator">-</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+                    <span class="token keyword">if</span> i<span class="token operator">+</span><span class="token number">1</span> <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>digits<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                        <span class="token comment"># 上位+1</span>
+                        digits<span class="token punctuation">[</span><span class="token operator">-</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> digits<span class="token punctuation">[</span><span class="token operator">-</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
+                    <span class="token keyword">else</span><span class="token punctuation">:</span>
+                        <span class="token comment"># 顶位补长</span>
+                        digits<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> digits<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<details>
+<summary>Result：</summary>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012209196.png"/>
+
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012212882.png"/>
+
+</details>
+
+<p>发现这样子，时空消耗可能还能进一步缩减，但不是非常必要。那如何缩减代码长度呢？</p>
+<p><strong>一种题解：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">plusOne</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> digits<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> digits<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<details>
+<summary>Result：</summary>
+
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012222766.png"/>
+
+</details>
+
+<p>这个题解使用了数据结构的有关方法，在缩减了代码长度的同时，引入了一个新的for，这个可能会增加时间复杂度。</p>
+<h3 id="283-移动零"><a href="#283-移动零" class="headerlink" title="283.移动零"></a>283.移动零</h3><p>链接： <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/move-zeroes/">https://leetcode-cn.com/problems/move-zeroes/</a></p>
+<h4 id="问题：-7"><a href="#问题：-7" class="headerlink" title="问题："></a>问题：</h4><p>给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。<br>请注意 ，必须在不复制数组的情况下原地对数组进行操作。</p>
+<p>示例 1:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: nums &#x3D; [0,1,0,3,12]
+输出: [1,3,12,0,0]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>示例 2:</p>
+<pre class="line-numbers language-none"><code class="language-none">输入: nums &#x3D; [0]
+输出: [0]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<details>
+<summary>其它：</summary>
+
+<p>提示:</p>
+<pre class="line-numbers language-none"><code class="language-none">1 &lt;&#x3D; nums.length &lt;&#x3D; 104
+-231 &lt;&#x3D; nums[i] &lt;&#x3D; 231 - 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>进阶：你能尽量减少完成的操作次数吗？</p>
+</details>
+
+<h4 id="解答：-7"><a href="#解答：-7" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">moveZeroes</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        Do not return anything, modify nums in-place instead.
+        """</span>
+        <span class="token comment"># 回退指针</span>
+        p <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token comment"># 定义范围循环</span>
+        <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment"># 找0</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>idx<span class="token operator">-</span>p<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                <span class="token comment"># 原位删除，末尾填补</span>
+                nums<span class="token punctuation">.</span>append<span class="token punctuation">(</span>nums<span class="token punctuation">.</span>pop<span class="token punctuation">(</span>idx<span class="token operator">-</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token comment"># 指针进位</span>
+                p <span class="token operator">+=</span> <span class="token number">1</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<details>
+<summary>Result：</summary>
+
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012154495.png"/>
+
+</details>
+
+<p>这个解答的空间消耗通常，但是时间消耗很大，其主要原因在于<code>pop</code>和<code>append</code>的时间消耗。</p>
+<details>
+<summary>**同类代码如下：**</summary>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">moveZeroes</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token comment"># 定义范围循环，这里range从后往前走了</span>
+        <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                nums<span class="token punctuation">.</span>pop<span class="token punctuation">(</span>idx<span class="token punctuation">)</span>
+                nums<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012153712.png"/>
+
+</details>
+
+
+<p>从后往前写的话，可以少一个指针的需求。<br>由于<code>pop(i)</code>($O(n)$)和<code>append</code>的影响，单指针在这道题的表现上确实是不如双指针，或者说，在上文中，我虽然定义了<code>p</code>指针，但其没有被有效利用上，所以想要提升效率的话，</p>
+<p><strong>再次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">moveZeroes</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        p <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                <span class="token comment"># 交换位置</span>
+                nums<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>p<span class="token punctuation">]</span>
+                p <span class="token operator">+=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<details>
+<summary>Result：</summary>
+
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204012157353.png"/>
+
+</details>
+
+
+
+<h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h3><h4 id="问题：-8"><a href="#问题：-8" class="headerlink" title="问题："></a>问题：</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">https://leetcode-cn.com/problems/two-sum/</a></p>
+<p>给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
+<p>你可以按任意顺序返回答案。</p>
+<p>示例 1：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [2,7,11,15], target &#x3D; 9
+输出：[0,1]
+解释：因为 nums[0] + nums[1] &#x3D;&#x3D; 9 ，返回 [0, 1] 。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+<p>示例 2：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [3,2,4], target &#x3D; 6
+输出：[1,2]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+<p>示例 3：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：nums &#x3D; [3,3], target &#x3D; 6
+输出：[0,1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>提示：</p>
+<pre class="line-numbers language-none"><code class="language-none">2 &lt;&#x3D; nums.length &lt;&#x3D; 104
+-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109
+-109 &lt;&#x3D; target &lt;&#x3D; 109<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>只会存在一个有效答案。</p>
+<p>进阶：你可以想出一个时间复杂度小于 O(n2) 的算法吗？</p>
+<h4 id="解答：-8"><a href="#解答：-8" class="headerlink" title="解答："></a>解答：</h4><p><strong>首次解答：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">twoSum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> target<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> idx1 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> idx2 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>idx1<span class="token punctuation">]</span><span class="token operator">+</span>nums<span class="token punctuation">[</span>idx2<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
+                    <span class="token keyword">if</span> idx1 <span class="token operator">!=</span> idx2<span class="token punctuation">:</span>
+                        <span class="token keyword">return</span> <span class="token punctuation">[</span>idx1<span class="token punctuation">,</span>idx2<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>显然这是一个$O(n^2) $复杂度的算法，但即使是上面这个程度，也还有优化的空间：因为两个idx之间显然是有对应关系的。每一个在前的元素都已经和后面的元素匹配过了。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">twoSum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> target<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> idx1 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> idx2 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> idx1 <span class="token operator">&lt;</span> idx2<span class="token punctuation">:</span>
+                    <span class="token keyword">if</span> nums<span class="token punctuation">[</span>idx1<span class="token punctuation">]</span><span class="token operator">+</span>nums<span class="token punctuation">[</span>idx2<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
+                        <span class="token keyword">return</span> <span class="token punctuation">[</span>idx1<span class="token punctuation">,</span>idx2<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>当然，以上的双循环方法，随着数组长度的增加，其消耗的时间以二次方增加。将其时间复杂度降低，我们可以观察目前的数据形式。如果使用字典的话，我们可以在内循环中，不必再使用$O(n) $的时间复杂度，而是$O(1) $。与此同时，我们的空间复杂度会提高到$O(n) $。</p>
+<h5 id="再次解答："><a href="#再次解答：" class="headerlink" title="再次解答："></a>再次解答：</h5><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">twoSum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> target<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        k <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        <span class="token keyword">for</span> idx1 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> target<span class="token operator">-</span>nums<span class="token punctuation">[</span>idx1<span class="token punctuation">]</span> <span class="token keyword">in</span> k<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token punctuation">[</span>idx1<span class="token punctuation">,</span> k<span class="token punctuation">[</span>target<span class="token operator">-</span>nums<span class="token punctuation">[</span>idx1<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+            k<span class="token punctuation">[</span>nums<span class="token punctuation">[</span>idx1<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> idx1
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>注意，在上述代码中，<em>将当前值与字典进行比较</em> ，和 <em>将当前值加入字典</em> 两步操作的顺序不可调换。程序的运行状态通常会影响程序的处理结果。在本题中，若是对调两个步骤，则无法处理以下情况：</p>
+<pre class="line-numbers language-none"><code class="language-none">[3,3] 6;
+[3,2,4,6] 6;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>通常来说，我们可以将对数据集的修改，放置在操作步骤之后来避免这种情况。当然，具体情况具体分析。</p>
+<blockquote>
+<p>不过对于函数式编程来说，就可以不用那么考虑状态。</p>
+</blockquote>
+<h3 id="36-有效的数独"><a href="#36-有效的数独" class="headerlink" title="36. 有效的数独"></a>36. 有效的数独</h3><h4 id="问题：-9"><a href="#问题：-9" class="headerlink" title="问题："></a>问题：</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-sudoku/">https://leetcode-cn.com/problems/valid-sudoku/</a></p>
+<p>请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。</p>
+<p>数字 1-9 在每一行只能出现一次。<br>数字 1-9 在每一列只能出现一次。<br>数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图）</p>
+<p>注意：</p>
+<p>一个有效的数独（部分已被填充）不一定是可解的。<br>只需要根据以上规则，验证已经填入的数字是否有效即可。<br>空白格用 ‘.’ 表示。</p>
+<img data-src="https://raw.githubusercontent.com/whiteloran/PicBed/master/img/202204122037760.png"/>
+
+<pre class="line-numbers language-none"><code class="language-none">输入：board &#x3D; 
+[[&quot;5&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]
+,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]
+,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]
+,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]
+,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]
+输出：true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>示例 2：</p>
+<pre class="line-numbers language-none"><code class="language-none">输入：board &#x3D; 
+[[&quot;8&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]
+,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]
+,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]
+,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]
+,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]
+输出：false
+解释：除了第一行的第一个数字从 5 改为 8 以外，空格内其他数字均与 示例1 相同。 但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="解答：-9"><a href="#解答：-9" class="headerlink" title="解答："></a>解答：</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">isValidSudoku</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> board<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span> 
+        x <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            y <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                y<span class="token punctuation">.</span>append<span class="token punctuation">(</span>board<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            x<span class="token punctuation">.</span>append<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+        <span class="token keyword">for</span> m <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> n <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                k <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+                p <span class="token operator">=</span> <span class="token number">0</span>
+                <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                        <span class="token comment"># 过空格</span>
+                        <span class="token keyword">if</span> board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'.'</span><span class="token punctuation">:</span>
+                            p <span class="token operator">+=</span> <span class="token number">1</span>
+                        <span class="token comment"># 比小块</span>
+                        <span class="token keyword">if</span> board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token string">'.'</span> <span class="token keyword">and</span> board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span> <span class="token keyword">not</span> <span class="token keyword">in</span> k<span class="token punctuation">:</span>
+                            k<span class="token punctuation">.</span>append<span class="token punctuation">(</span>board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                        <span class="token comment"># 比横竖</span>
+                        <span class="token keyword">if</span> board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token string">'.'</span><span class="token punctuation">:</span> 
+                            <span class="token keyword">if</span>  board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">.</span>count<span class="token punctuation">(</span>board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span> <span class="token keyword">or</span> x<span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span><span class="token punctuation">.</span>count<span class="token punctuation">(</span>board<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">:</span>
+                                <span class="token keyword">return</span> <span class="token boolean">False</span>
+                <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">9</span> <span class="token operator">-</span> p<span class="token punctuation">:</span>
+                    <span class="token keyword">return</span> <span class="token boolean">False</span>
+        <span class="token keyword">return</span> <span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h3 id="48-旋转图像"><a href="#48-旋转图像" class="headerlink" title="48. 旋转图像"></a>48. 旋转图像</h3><h4 id="问题：-10"><a href="#问题：-10" class="headerlink" title="问题："></a>问题：</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-image/">https://leetcode-cn.com/problems/rotate-image/</a></p>
+<p>给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。</p>
+<p>你必须在 <strong>原地</strong> 旋转图像，这意味着你需要直接修改输入的二维矩阵。请<strong>不要</strong> 使用另一个矩阵来旋转图像。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/08/28/mat1.jpg" alt="img"></p>
+<pre class="line-numbers language-none"><code class="language-none">输入：matrix &#x3D; [[1,2,3],[4,5,6],[7,8,9]]
+输出：[[7,4,1],[8,5,2],[9,6,3]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/08/28/mat2.jpg" alt="img"></p>
+<pre class="line-numbers language-none"><code class="language-none">输入：matrix &#x3D; [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+输出：[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>提示：</p>
+<pre class="line-numbers language-none"><code class="language-none">n &#x3D;&#x3D; matrix.length &#x3D;&#x3D; matrix[i].length
+1 &lt;&#x3D; n &lt;&#x3D; 20
+-1000 &lt;&#x3D; matrix[i][j] &lt;&#x3D; 1000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="解答：-10"><a href="#解答：-10" class="headerlink" title="解答："></a>解答：</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">rotate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> matrix<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        Do not return anything, modify matrix in-place instead.
+        """</span>
+        length <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>length<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>length<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> i<span class="token operator">&lt;=</span>j<span class="token punctuation">:</span>
+                    matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>length<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>length<span class="token operator">//</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">-</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">-</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>一道数学规律题。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/" rel="tag"># 初级算法</a>
+              <a href="/tags/list/" rel="tag"># list</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/01/22040101/" rel="prev" title="论文略读2022-04-01">
+      <i class="fa fa-chevron-left"></i> 论文略读2022-04-01
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/12/22041201/" rel="next" title="Leetcode 初级算法-字符串">
+      Leetcode 初级算法-字符串 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E6%95%B0%E7%BB%84"><span class="nav-text">初级算法-数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86"><span class="nav-text">知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E5%B7%A7"><span class="nav-text">技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%E6%B3%95%EF%BC%88%E5%A4%9A%E6%8C%87%E9%92%88%E6%B3%95%EF%BC%89"><span class="nav-text">双指针法（多指针法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#26-%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9"><span class="nav-text">26.删除有序数组中的重复项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-II"><span class="nav-text">122. 买卖股票的最佳时机 II</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-1"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-1"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#189-%E8%BD%AE%E8%BD%AC%E6%95%B0%E7%BB%84"><span class="nav-text">189. 轮转数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-2"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-2"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#217-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0"><span class="nav-text">217. 存在重复元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-3"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-3"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-text">136. 只出现一次的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-4"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-4"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#350-%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86-II"><span class="nav-text">350. 两个数组的交集 II</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-5"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-5"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#66-%E5%8A%A0%E4%B8%80"><span class="nav-text">66.加一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-6"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-6"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#283-%E7%A7%BB%E5%8A%A8%E9%9B%B6"><span class="nav-text">283.移动零</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-7"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-7"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-text">1. 两数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-8"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-8"><span class="nav-text">解答：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%8D%E6%AC%A1%E8%A7%A3%E7%AD%94%EF%BC%9A"><span class="nav-text">再次解答：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC"><span class="nav-text">36. 有效的数独</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-9"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-9"><span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#48-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F"><span class="nav-text">48. 旋转图像</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A-10"><span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A-10"><span class="nav-text">解答：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="whiteloran"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">whiteloran</p>
+  <div class="site-description" itemprop="description">Il n'ya qu'un héroïsme au monde, c'est de voir le monde tel qu'il est et de l'aimer.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whiteloran" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whiteloran" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-angle-double-up"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">whiteloran</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":300,"height":300},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
